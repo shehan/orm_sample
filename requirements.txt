@@ -1,0 +1,8 @@
+greenlet==1.1.1
+importlib-metadata==4.6.4
+psycopg2==2.9.1
+six==1.16.0
+SQLAlchemy==1.4.23
+SQLAlchemy-Utils==0.37.8
+typing-extensions==3.10.0.0
+zipp==3.5.0
