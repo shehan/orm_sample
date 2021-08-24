@@ -1,3 +1,5 @@
+from datetime import date
+
 from sqlalchemy import Column, Integer, String
 from sqlalchemy import create_engine, Date
 from sqlalchemy.exc import OperationalError
@@ -20,6 +22,11 @@ class Students(Base):
 
 def setup_database():
     global engine
+
+    # The following is for SQLite
+    #engine = create_engine('sqlite:///orm_demo.sqlite')
+
+    # The following is for PostgreSQL
     # make sure the username, password and server are valid
     # use echo=True to get a verbose output
     engine = create_engine("postgresql://swen344:swen344@localhost/orm_demo")
@@ -38,7 +45,7 @@ def setup_database():
 
 def populate_table():
     # Insert a single record
-    student = Students(first_name='John', last_name='Smith', enrollment_date='8/13/2021')
+    student = Students(first_name='John', last_name='Smith', enrollment_date=date.fromisoformat('2021-08-13'))
     session = Session(bind=engine)
     session.add(student)
     session.commit()
@@ -46,11 +53,11 @@ def populate_table():
 
     # Insert multiple records
     student_list = [
-        Students(first_name='Alice', last_name='Black', enrollment_date='8/01/2021'),
-        Students(first_name='Peter', last_name='Brown', enrollment_date='7/28/2021'),
-        Students(first_name='Fred', last_name='Green', enrollment_date='8/13/2021'),
-        Students(first_name='Sarah', last_name='Silver', enrollment_date='8/23/2021'),
-        Students(first_name='Jack', last_name='White', enrollment_date='7/12/2021')
+        Students(first_name='Alice', last_name='Black', enrollment_date=date.fromisoformat('2021-08-01')),
+        Students(first_name='Peter', last_name='Brown', enrollment_date=date.fromisoformat('2021-07-28')),
+        Students(first_name='Fred', last_name='Green', enrollment_date=date.fromisoformat('2021-08-13')),
+        Students(first_name='Sarah', last_name='Silver', enrollment_date=date.fromisoformat('2021-08-23')),
+        Students(first_name='Jack', last_name='White', enrollment_date=date.fromisoformat('2021-07-12'))
     ]
     session.bulk_save_objects(student_list, return_defaults=True)
     session.commit()
